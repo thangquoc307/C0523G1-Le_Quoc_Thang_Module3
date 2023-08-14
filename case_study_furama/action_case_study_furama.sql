@@ -60,6 +60,19 @@ order by khach_hang.ma_khach_hang;
 
 -- 6.Hiển thị ma_dich_vu, ten_dich_vu, dien_tich, chi_phi_thue, ten_loai_dich_vu của tất cả các loại
 -- dịch vụ chưa từng được khách hàng thực hiện đặt từ quý 1 của năm 2021 (Quý 1 là tháng 1, 2, 3).
+select 
+	dich_vu.ma_dich_vu as "Mã dịch vụ",
+    dich_vu.ten_dich_vu as "Tên dịch vụ",
+    dich_vu.dien_tich as "Diện tích",
+    dich_vu.chi_phi_thue as "Chi phí thuê",
+    loai_dich_vu.ten_loai_dich_vu as "Loại dich vụ"
+from dich_vu
+	inner join hop_dong on hop_dong.ma_dich_vu = dich_vu.ma_dich_vu
+	inner join loai_dich_vu on dich_vu.ma_loai_dich_vu = loai_dich_vu.ma_loai_dich_vu
+
+	
+group by
+    dich_vu.ma_dich_vu
 
 -- 7.Hiển thị thông tin ma_dich_vu, ten_dich_vu, dien_tich, so_nguoi_toi_da, chi_phi_thue,
 -- ten_loai_dich_vu của tất cả các loại dịch vụ đã từng được khách hàng đặt phòng trong năm 2020
