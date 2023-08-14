@@ -69,8 +69,6 @@ select
 from dich_vu
 	inner join hop_dong on hop_dong.ma_dich_vu = dich_vu.ma_dich_vu
 	inner join loai_dich_vu on dich_vu.ma_loai_dich_vu = loai_dich_vu.ma_loai_dich_vu
-
-	
 group by
     dich_vu.ma_dich_vu
 
