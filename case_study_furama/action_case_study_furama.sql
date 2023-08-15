@@ -11,8 +11,10 @@ and length(nhan_vien.ho_ten) <= 15;
 -- 3.Hiển thị thông tin của tất cả khách hàng có độ tuổi từ 18 đến 50 tuổi và có địa chỉ ở “Đà Nẵng”
 -- hoặc “Quảng Trị”.
 select * from khach_hang
-where (year(current_date()) - year(khach_hang.ngay_sinh) >= 18) and (khach_hang.dia_chi like "%Đà Nẵng%" 
-or khach_hang.dia_chi like "%Quảng Trị%");
+where (year(current_date()) - year(khach_hang.ngay_sinh) >= 18)
+    and (year(current_date()) - year(khach_hang.ngay_sinh) <= 50)
+    and (khach_hang.dia_chi like "%Đà Nẵng%" 
+	or khach_hang.dia_chi like "%Quảng Trị%");
 
 -- 4.Đếm xem tương ứng với mỗi khách hàng đã từng đặt phòng bao nhiêu lần. Kết quả hiển thị được sắp xếp
 -- tăng dần theo số lần đặt phòng của khách hàng. Chỉ đếm những khách hàng nào có Tên loại khách hàng là
@@ -57,6 +59,9 @@ order by khach_hang.ma_khach_hang;
 
 -- 6.Hiển thị ma_dich_vu, ten_dich_vu, dien_tich, chi_phi_thue, ten_loai_dich_vu của tất cả các loại
 -- dịch vụ chưa từng được khách hàng thực hiện đặt từ quý 1 của năm 2021 (Quý 1 là tháng 1, 2, 3).
+create view hop_dong_quy_1_2021 as
+select * from `hop_dong`
+where (month(`hop_dong`.`ngay_lam_hop_dong`) in (1,2,3) and year(`hop_dong`.`ngay_lam_hop_dong`) = 2021);
 select 
 	dich_vu.ma_dich_vu as "Mã dịch vụ",
     dich_vu.ten_dich_vu as "Tên dịch vụ",
@@ -66,22 +71,73 @@ select
 from dich_vu
 	inner join hop_dong on hop_dong.ma_dich_vu = dich_vu.ma_dich_vu
 	inner join loai_dich_vu on dich_vu.ma_loai_dich_vu = loai_dich_vu.ma_loai_dich_vu
+    left join hop_dong_quy_1_2021 on hop_dong_quy_1_2021.ma_dich_vu = dich_vu.ma_dich_vu
 group by
-    dich_vu.ma_dich_vu
+    dich_vu.ma_dich_vu;
 
 -- 7.Hiển thị thông tin ma_dich_vu, ten_dich_vu, dien_tich, so_nguoi_toi_da, chi_phi_thue,
 -- ten_loai_dich_vu của tất cả các loại dịch vụ đã từng được khách hàng đặt phòng trong năm 2020
 -- nhưng chưa từng được khách hàng đặt phòng trong năm 2021.
+create view hop_dong_2020 as
+select * from `hop_dong`
+where year(`hop_dong`.`ngay_lam_hop_dong`) = 2020;
+create view hop_dong_2021 as
+select * from `hop_dong`
+where year(`hop_dong`.`ngay_lam_hop_dong`) = 2021;
+select
+	dich_vu.ma_dich_vu as "Mã dịch vụ",
+    dich_vu.ten_dich_vu as "Tên dịch vụ",
+    dich_vu.dien_tich as "Diện tích",
+    dich_vu.so_nguoi_toi_da as "Số người tối đa",
+    dich_vu.chi_phi_thue as "Chi phí thuê",
+    loai_dich_vu.ten_loai_dich_vu as "Loại dich vụ"
+from `dich_vu`
+	inner join loai_dich_vu on dich_vu.ma_loai_dich_vu = loai_dich_vu.ma_loai_dich_vu
+    inner join hop_dong_2020 on dich_vu.ma_dich_vu = hop_dong_2020.ma_dich_vu
+    left join hop_dong_2021 on dich_vu.ma_dich_vu = hop_dong_2021.ma_dich_vu
+where
+	hop_dong_2021.ma_dich_vu is null
+group by 
+	dich_vu.ma_dich_vu;
 
 -- 8.Hiển thị thông tin ho_ten khách hàng có trong hệ thống, với yêu cầu ho_ten không trùng nhau.
 -- Học viên sử dụng theo 3 cách khác nhau để thực hiện yêu cầu trên.
+select ho_ten from khach_hang
+group by ho_ten;
+
+select ho_ten from khach_hang
+union
+select ho_ten from khach_hang;
+
+select distinct ho_ten from khach_hang;
 
 -- 9.Thực hiện thống kê doanh thu theo tháng, nghĩa là tương ứng với mỗi tháng trong năm 2021 thì
 -- sẽ có bao nhiêu khách hàng thực hiện đặt phòng.
+select 
+	month(ngay_lam_hop_dong) as "Tháng",
+    sum(dich_vu.chi_phi_thue + ifnull(dich_vu_di_kem.gia, 0) * ifnull(hop_dong_chi_tiet.so_luong, 0)) as tong_tien
+from hop_dong
+	inner join dich_vu on dich_vu.ma_dich_vu = hop_dong.ma_dich_vu
+    left join hop_dong_chi_tiet on hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
+    left join dich_vu_di_kem on hop_dong_chi_tiet.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem
+group by `Tháng`
+order by `Tháng`;
 
 -- 10.Hiển thị thông tin tương ứng với từng hợp đồng thì đã sử dụng bao nhiêu dịch vụ đi kèm.
 -- Kết quả hiển thị bao gồm ma_hop_dong, ngay_lam_hop_dong, ngay_ket_thuc, tien_dat_coc,
 -- so_luong_dich_vu_di_kem (được tính dựa trên việc sum so_luong ở dich_vu_di_kem).
+select 
+	hop_dong.ma_hop_dong,
+    hop_dong.ngay_lam_hop_dong,
+    hop_dong.ngay_ket_thuc,
+    hop_dong.tien_dat_coc,
+    sum(ifnull(hop_dong_chi_tiet.so_luong, 0)) as "Số lượng dịch vụ đi kèm"
+from hop_dong
+left join hop_dong_chi_tiet on hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
+group by 
+	hop_dong.ma_hop_dong
+order by
+	hop_dong.ma_hop_dong;
 
 -- 11.Hiển thị thông tin các dịch vụ đi kèm đã được sử dụng bởi những khách hàng có ten_loai_khach
 -- là “Diamond” và có dia_chi ở “Vinh” hoặc “Quảng Ngãi”.
