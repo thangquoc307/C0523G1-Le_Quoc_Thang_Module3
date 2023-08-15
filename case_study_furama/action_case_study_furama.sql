@@ -30,9 +30,6 @@ order by so_lan_dat_phong;
 -- Chi Phí Thuê + Số Lượng * Giá, với Số Lượng và Giá là từ bảng dich_vu_di_kem, hop_dong_chi_tiet)
 -- cho tất cả các khách hàng đã từng đặt phòng. (những khách hàng nào chưa từng đặt phòng cũng phải
 -- hiển thị ra).
-
--- 5., tong_tien (Với tổng tiền được tính theo công thức như sau:
--- Chi Phí Thuê + Số Lượng * Giá, với Số Lượng và Giá là từ bảng dich_vu_di_kem, hop_dong_chi_tiet)
 select 
 	khach_hang.ma_khach_hang,
 	khach_hang.ho_ten, 

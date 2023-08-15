@@ -78,4 +78,4 @@ SET sql_safe_updates = 1;
 SELECT *
 FROM Mark
 LEFT JOIN Student ON Mark.StudentId = Student.StudentId
-ORDER BY Mark.Mark;
+ORDER BY Mark.Mark desc, student.StudentName asc;
