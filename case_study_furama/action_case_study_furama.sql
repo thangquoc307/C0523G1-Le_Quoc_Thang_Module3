@@ -295,6 +295,7 @@ where khach_hang.ma_khach_hang in (
 set sql_safe_updates = 1;
 
 -- 19.Cập nhật giá cho các dịch vụ đi kèm được sử dụng trên 10 lần trong năm 2020 lên gấp đôi.
+-- sửa theo đề
 set sql_safe_updates = 0;
 update dich_vu
 set dich_vu.chi_phi_thue = dich_vu.chi_phi_thue * 2
@@ -333,14 +334,36 @@ from
 -- 21.Tạo khung nhìn có tên là v_nhan_vien để lấy được thông tin của tất cả các nhân viên có địa chỉ là
 -- “Hải Châu” và đã từng lập hợp đồng cho một hoặc nhiều khách hàng bất kì với ngày lập hợp đồng là
 -- “12/12/2019”.
-
+create view v_nhan_vien as
+select
+	nhan_vien.ma_nhan_vien,
+	nhan_vien.ho_ten
+from nhan_vien
+	inner join hop_dong on hop_dong.ma_nhan_vien = nhan_vien.ma_nhan_vien
+where nhan_vien.dia_chi like "%Hải Châu%" and hop_dong.ngay_lam_hop_dong = "2019-12-12";
 
 -- 22.Thông qua khung nhìn v_nhan_vien thực hiện cập nhật địa chỉ thành “Liên Chiểu” đối với tất cả
 -- các nhân viên được nhìn thấy bởi khung nhìn này.
-
+set sql_safe_updates = 0;
+update nhan_vien
+	inner join v_nhan_vien on v_nhan_vien.ma_nhan_vien = nhan_vien.ma_nhan_vien
+set nhan_vien.dia_chi = replace(nhan_vien.dia_chi, "Hải Châu", "Liên Chiểu");
+set sql_safe_updates = 1;
 
 -- 23.Tạo Stored Procedure sp_xoa_khach_hang dùng để xóa thông tin của một khách hàng nào đó với 
 -- ma_khach_hang được truyền vào như là 1 tham số của sp_xoa_khach_hang.
+delimiter //
+create procedure delete_customer_by_id(del_id int)
+begin
+	set sql_safe_updates = 0;
+	update khach_hang
+	set `delete` = 1
+	where khach_hang.ma_khach_hang = del_id;
+	set sql_safe_updates = 1;
+end //
+delimiter ;
+
+call delete_customer_by_id(1);
 
 -- 24.Tạo Stored Procedure sp_them_moi_hop_dong dùng để thêm mới vào bảng hop_dong với yêu cầu
 -- sp_them_moi_hop_dong phải thực hiện kiểm tra tính hợp lệ của dữ liệu bổ sung, với nguyên tắc
