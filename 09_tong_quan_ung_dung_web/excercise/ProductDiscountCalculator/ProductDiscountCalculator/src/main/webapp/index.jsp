@@ -5,7 +5,7 @@
     <title>ProductDiscountCalculator</title>
 </head>
 <body>
-<form action="/DiscountCalculator" method="post">
+<form action="/discount-calculator" method="post">
     <table>
         <tr>
             <td>Mô tả sản phẩm</td>

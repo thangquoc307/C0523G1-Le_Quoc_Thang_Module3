@@ -1,5 +1,5 @@
 package com.thangquoc.productdiscountcalculator;
-
+import service.service;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "DiscountCalculator",value = "/DiscountCalculator")
+@WebServlet(name = "DiscountCalculator",value = "/discount-calculator")
 
 public class DiscountCalculator extends HttpServlet {
     @Override
@@ -17,8 +17,9 @@ public class DiscountCalculator extends HttpServlet {
         double price = Double.parseDouble(req.getParameter("price"));
         double percentage = Double.parseDouble(req.getParameter("percentage"));
 
-        double discountAmount = price * percentage / 100;
-        double discountPrice = price - discountAmount;
+        double[] result = service.calculator(price, percentage);
+        double discountAmount = result[0];
+        double discountPrice = result[1];
 
 
         req.setAttribute("description", req.getParameter("description"));

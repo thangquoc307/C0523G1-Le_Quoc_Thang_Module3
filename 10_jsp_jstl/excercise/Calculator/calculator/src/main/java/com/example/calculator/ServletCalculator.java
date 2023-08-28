@@ -1,9 +1,12 @@
 package com.example.calculator;
 
+import service.CalculatorService;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+
 
 @WebServlet(name = "ServletCalculator", value = "/ServletCalculator")
 public class ServletCalculator extends HttpServlet {
@@ -13,26 +16,10 @@ public class ServletCalculator extends HttpServlet {
         double firstOperator = Double.parseDouble(request.getParameter("first-operator"));
         double secondOperator = Double.parseDouble(request.getParameter("second-operator"));
         String operator = request.getParameter("operator");
-        double result = 0;
-        Boolean error = false;
-        switch (operator){
-            case "+":
-                result = firstOperator + secondOperator;
-                break;
-            case "-":
-                result = firstOperator - secondOperator;
-                break;
-            case "x":
-                result= firstOperator * secondOperator;
-                break;
-            case "/":
-                if (secondOperator == 0){
-                    error = true;
-                } else {
-                    result = firstOperator / secondOperator;
-                }
-        }
-        if (error){
+        String[] strings = CalculatorService.calculator(firstOperator,secondOperator,operator);
+        String result = strings[0];
+
+        if (strings[1].equals("true")){
             request.setAttribute("result", "Không thể chia cho 0");
         }else {
             request.setAttribute("result", result);
