@@ -9,7 +9,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "ServletDisplayCustomer", value = "/ServletDisplayCustomer")
+@WebServlet(name = "ServletDisplayCustomer", value = "//display-customer")
 public class ServletDisplayCustomer extends HttpServlet {
 
     @Override

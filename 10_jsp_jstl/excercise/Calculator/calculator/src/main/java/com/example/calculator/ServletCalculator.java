@@ -8,7 +8,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 
 
-@WebServlet(name = "ServletCalculator", value = "/ServletCalculator")
+@WebServlet(name = "ServletCalculator", value = "/calculator")
 public class ServletCalculator extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

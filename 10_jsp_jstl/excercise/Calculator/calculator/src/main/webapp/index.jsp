@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Simple Calculator</h1>
-<form action="/ServletCalculator" method="post">
+<form action="/calculator" method="post">
     <table>
         <tr>
             <td>First operand : </td>

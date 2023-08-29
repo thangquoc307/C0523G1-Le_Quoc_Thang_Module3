@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a3d6403-5c35-49a6-bcda-8bb7de27a4df" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../../10_jsp_jstl/excercise/Calculator/calculator/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../10_jsp_jstl/excercise/Calculator/calculator/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../10_jsp_jstl/excercise/Calculator/calculator/src/main/java/com/example/calculator/ServletCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../10_jsp_jstl/excercise/Calculator/calculator/src/main/java/com/example/calculator/ServletCalculator.java" afterDir="false" />
-    </list>
+    <list default="true" id="2a3d6403-5c35-49a6-bcda-8bb7de27a4df" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,7 +35,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Codegym/C0523G1-Le_Quoc_Thang_Module3/09_tong_quan_ung_dung_web/excercise/ProductDiscountCalculator/ProductDiscountCalculator",
+    "last_opened_file_path": "D:/Codegym/C0523G1-Le_Quoc_Thang_Module3/10_jsp_jstl/excercise/Calculator",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -146,6 +143,7 @@
       <updated>1693121832495</updated>
       <workItem from="1693121833611" duration="548000" />
       <workItem from="1693216422652" duration="25000" />
+      <workItem from="1693298313577" duration="26000" />
     </task>
     <servers />
   </component>
