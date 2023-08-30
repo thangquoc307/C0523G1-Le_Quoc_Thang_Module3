@@ -2,12 +2,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>Quản lý sản phẩm</title>
 </head>
 <body>
-<h1><%= "Hello World!" %>
-</h1>
-<br/>
-<a href="hello-servlet">Hello Servlet</a>
+<h2>Trang quản lý sản phẩm</h2>
+
+<a href="/Controller?action=displayAll">Hiển thị toàn bộ sản phẩm</a><br>
+<a href="/addProduct.jsp">Thêm mới sản phẩm</a><br>
 </body>
 </html>
