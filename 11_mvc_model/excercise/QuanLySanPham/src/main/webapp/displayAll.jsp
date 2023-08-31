@@ -33,13 +33,13 @@
 </table>
 <script>
     function editProduct(id, name, price){
-        window.location.href = "/Controller?action=edit&id=" + id + "&name=" + name + "&price=" + price;
+        window.location.href = "/product?action=edit&id=" + id + "&name=" + name + "&price=" + price;
     }
     function deleteProduct(id){
-        window.location.href = "/Controller?action=delete&id=" + id;
+        window.location.href = "/product?action=delete&id=" + id;
     }
     function findProduct(name){
-        window.location.href = "/Controller?action=find&name=" + name;
+        window.location.href = "/product?action=find&name=" + name;
     }
 </script>
 </body>

@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<form action="/Controller?action=editProductAfterEnterValue" method="post">
+<form action="/product?action=editProductAfterEnterValue" method="post">
   <a href="index.jsp">quay lại</a>
   <input type="hidden" name="id" value="${id}">
   <table>

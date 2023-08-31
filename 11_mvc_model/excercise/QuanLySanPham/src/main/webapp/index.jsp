@@ -7,7 +7,7 @@
 <body>
 <h2>Trang quản lý sản phẩm</h2>
 
-<a href="/Controller?action=displayAll">Hiển thị toàn bộ sản phẩm</a><br>
+<a href="/product?action=displayAll">Hiển thị toàn bộ sản phẩm</a><br>
 <a href="/addProduct.jsp">Thêm mới sản phẩm</a><br>
 </body>
 </html>

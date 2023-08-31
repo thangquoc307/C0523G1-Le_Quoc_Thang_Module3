@@ -11,7 +11,7 @@
     <title>Thêm mới sản phẩm</title>
 </head>
 <body>
-<form action="/Controller?action=addProduct" method="post">
+<form action="/product?action=addProduct" method="post">
   <a href="index.jsp">quay lại</a>
   <table>
     <tr>

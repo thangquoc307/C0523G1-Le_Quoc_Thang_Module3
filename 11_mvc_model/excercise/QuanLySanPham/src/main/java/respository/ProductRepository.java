@@ -1,19 +1,18 @@
 package respository;
 
-import model.BaseRepository;
 import model.Product;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductRepository {
+public class ProductRepository implements IProductRespository {
     private static final String SELECT = "select * from `san_pham`";
     private static final String ADD = "insert into `san_pham`(`ten`,`gia`) values (?, ?)";
     private static final String EDIT = "update `san_pham` set `ten` = ?, `gia` = ? where (`id` = ?);";
     private static final String DEL = "delete from `san_pham` where (`id` = ?);";
     private static final String FIND = "select * from `san_pham` where `ten` like ?;";
 
-    public static List<Product> displayProduct(){
+    public List<Product> displayProduct(){
         List<Product> list = new ArrayList<>();
         try {
             Connection connection = BaseRepository.getConnection();
@@ -33,7 +32,7 @@ public class ProductRepository {
         }
         return list;
     }
-    public static void addProduct(String name, int price){
+    public void addProduct(String name, int price){
         try {
             Connection connection = BaseRepository.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(ADD);
@@ -46,7 +45,7 @@ public class ProductRepository {
             e.printStackTrace();
         }
     }
-    public static void editProduct(int id, String name, int price){
+    public void editProduct(int id, String name, int price){
         try {
             Connection connection = BaseRepository.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(EDIT);
@@ -60,7 +59,7 @@ public class ProductRepository {
             e.printStackTrace();
         }
     }
-    public static void deleteProduct(int id){
+    public void deleteProduct(int id){
         try {
             Connection connection = BaseRepository.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(DEL);
@@ -71,7 +70,7 @@ public class ProductRepository {
             e.printStackTrace();
         }
     }
-    public static List<Product> findProduct(String keyword){
+    public List<Product> findProduct(String keyword){
         List<Product> list = new ArrayList<>();
         try {
             Connection connection = BaseRepository.getConnection();
