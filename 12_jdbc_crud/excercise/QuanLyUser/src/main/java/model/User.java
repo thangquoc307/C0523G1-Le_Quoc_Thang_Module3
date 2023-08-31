@@ -1,10 +1,10 @@
 package model;
 
 public class User {
-    protected int id;
-    protected String name;
-    protected String email;
-    protected String country;
+    private int id;
+    private String name;
+    private String email;
+    private String country;
 
     public User() {}
 
@@ -22,7 +22,6 @@ public class User {
         this.email = email;
         this.country = country;
     }
-
     public int getId() {
         return id;
     }
