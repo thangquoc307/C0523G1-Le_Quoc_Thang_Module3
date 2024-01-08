@@ -141,6 +141,7 @@ public class UserDAO implements IUserDAO {
             }
         } catch (SQLException e) {
             printSQLException(e);
+
         }
         return users;
     }

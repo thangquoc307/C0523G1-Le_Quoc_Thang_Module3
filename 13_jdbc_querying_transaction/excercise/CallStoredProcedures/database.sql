@@ -56,3 +56,6 @@ value
     call get_user(1);
     call edit_user(1, "new thắng", 99, "núi");
     call delete_user(1);
+    
+insert into `users`(`user_name`, `age`,`nation`)
+value ("Thắng", 90, "abc");
